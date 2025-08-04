@@ -24,5 +24,5 @@ El nombre de la carpeta es: `ExamenPrograIntermedia`.
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/TU_USUARIO/ExamenPrograIntermedia.git
+   git clone https://github.com/code-lord666/ExamenPrograIntermedia.git
    cd ExamenPrograIntermedia
