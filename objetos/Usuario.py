@@ -1,0 +1,1 @@
+# Representa al usuario que realiza las ventas
