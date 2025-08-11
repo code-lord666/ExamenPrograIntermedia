@@ -1,9 +1,9 @@
 # Representa los productos disponibles
 class Producto:
-    def __init__(self, idproducto, nombreProducto, precio, cantidad):
-        self.idproducto = idproducto
-        self.nombreProducto = nombreProducto
+    def __init__(self, id_producto, nombre_Producto, precio, cantidad):
+        self.id_producto = id_producto
+        self.nombre_Producto = nombre_Producto
         self.precio = precio
         self.cantidad = cantidad
     def __str__(self):
-        return f"Producto :{self.nombre} Id :{self.id}"
+        return f"Producto :{self.nombre_Producto} Id :{self.id_producto}"
