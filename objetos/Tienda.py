@@ -34,7 +34,12 @@ class Tienda:
 
 
     #def vender_producto (self, id_producto, id_usuario): 
-
+    def listar_productos(self):
+        if not self.productos:
+            return print("❌ No hay productos disponibles.")
+        for producto in self.productos:
+            print(producto)
+ 
         
     
 

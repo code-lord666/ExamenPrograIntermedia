@@ -3,7 +3,6 @@ from objetos.Producto import Producto
 from objetos.Usuario import Usuario
 from objetos.Venta import Venta
 from objetos.Gestor import Gestor
-
 def pedir_int(msg, minimo=None, maximo=None):
     while True:
         try:
@@ -38,16 +37,12 @@ def pedir_str(msg, obligatorio=False):
         return s
 
 
-def imprimir_productos(productos):
+def imprimir_productos(tienda):
     print("\n📦 Productos")
     print("-" * 60)
-    print(f"{'ID':<5}{'Nombre':<30}{'Precio':>10}{'Stock':>10}")
-    print("-" * 60)
-    if not productos:
-        print("(sin productos)")
-    else:
-        for i, p in enumerate(productos, start=1):
-            print(f"{i:<5}{p.nombre:<30}{p.precio:>10.2f}{p.stock:>10}")
+    #print(f"{'ID':<5}{'Nombre':<30}{'Precio':>10}{'Stock':>10}")
+
+    tienda.listar_productos()
     print("-" * 60)
 
 def imprimir_usuarios(usuarios):
@@ -112,7 +107,7 @@ def guardar_datos(tienda, gestor):
 # ================== Acciones del menú ===================
 
 def accion_listar_productos(tienda):
-    imprimir_productos(tienda.listar_productos())
+    imprimir_productos(tienda)
 
 def accion_agregar_producto(tienda):
     nombre = pedir_str("Nombre del producto: ", obligatorio=True)
