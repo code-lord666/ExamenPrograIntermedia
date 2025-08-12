@@ -3,14 +3,12 @@
 from .Producto import Producto
 from .Usuario import Usuario
 from .Venta import Venta
-from .Gestor import Gestor
 
 class Tienda:
     def __init__(self):
         self.productos = []
         self.usuarios = []
         self.ventas = []
-        self.gestor = Gestor()
 
     def agregar_usuario(self, usuario):
         self.usuarios.append(usuario)
@@ -20,7 +18,6 @@ class Tienda:
 
     def agregar_venta(self, venta):
         self.ventas.append(venta)
-        self.gestor.guardar_en_csv(venta)
         
 
     def verificar_usuario(self, id_usuario):

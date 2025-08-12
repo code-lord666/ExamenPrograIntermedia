@@ -137,7 +137,7 @@ def menu():
 0) Salir
 ==========================================
 """)
-        op = pedir_int("Elige una opción: ", minimo=0, maximo=7)
+        op = pedir_int("Elige una opción: ", minimo=0, maximo=8)
 
         if op == 1:
             accion_listar_productos(tienda)
@@ -152,8 +152,12 @@ def menu():
         elif op == 6:
             accion_listar_ventas(tienda)
         elif op == 7:
+            gestor.guardar_csv(tienda)
             #mostrar_estadisticas_csv()
             pass
+        elif op == 8:
+            gestor.mostrar_estadisticas_csv()
+
         elif op == 0:
             print("¡Gracias por usar la tienda!")
             break
