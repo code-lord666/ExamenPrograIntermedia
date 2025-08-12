@@ -1,8 +1,8 @@
 # Orquestador general, aqui se manejan PRODUCTOS, USUARIOS, VENTAS
 
-from Producto import Producto
-from Usuario import Usuario
-from Venta import Venta
+from .Producto import Producto
+from .Usuario import Usuario
+from .Venta import Venta
 
 class Tienda:
     def __init__(self):

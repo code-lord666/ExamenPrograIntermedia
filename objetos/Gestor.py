@@ -1,7 +1,7 @@
 # Guarda y carga datos desde/para CSV usando pandas y matplotlib
 
 import csv
-from Venta import Venta
+from .Venta import Venta
 
 class Gestor:
     def guardar_en_csv(self, venta: 'Venta', archivo='ventas.csv'):

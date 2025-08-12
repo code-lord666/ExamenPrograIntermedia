@@ -1,7 +1,7 @@
 # Representa una venta concreta (producto, cantidad, total, fecha) 
 from datetime import datetime
-from Producto import Producto
-from Usuario import Usuario
+from .Producto import Producto
+from .Usuario import Usuario
 
 class Venta:
     def __init__(self, producto: Producto, cantidad: int, usuario: Usuario):
