@@ -3,6 +3,9 @@ from objetos.Producto import Producto
 from objetos.Usuario import Usuario
 from objetos.Venta import Venta
 from objetos.Gestor import Gestor
+#----------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------
 def pedir_int(msg, minimo=None, maximo=None):
     while True:
         try:
@@ -40,8 +43,6 @@ def pedir_str(msg, obligatorio=False):
 def imprimir_productos(tienda):
     print("\n📦 Productos")
     print("-" * 60)
-    #print(f"{'ID':<5}{'Nombre':<30}{'Precio':>10}{'Stock':>10}")
-
     tienda.listar_productos()
     print("-" * 60)
 
@@ -58,38 +59,6 @@ def imprimir_ventas(tienda):
     print("-" * 80)
 
 
-# =============== Carga inicial / Guardado ===============
-
-def cargar_datos(tienda, gestor):
-    # Productos
-    try:
-        for p in gestor.cargar_productos():
-            tienda.agregar_producto(p)
-    except Exception as e:
-        print(f"⚠️ No se cargaron productos: {e}")
-
-    # Usuarios
-    try:
-        for u in gestor.cargar_usuarios():
-            tienda.registrar_usuario(u)
-    except Exception as e:
-        print(f"⚠️ No se cargaron usuarios: {e}")
-
-    # Ventas
-    try:
-        for v in gestor.cargar_ventas():
-            tienda.registrar_venta(v)
-    except Exception as e:
-        print(f"⚠️ No se cargaron ventas: {e}")
-
-def guardar_datos(tienda, gestor):
-    try:
-        gestor.guardar_productos(tienda.listar_productos())
-        gestor.guardar_usuarios(tienda.listar_usuarios())
-        gestor.guardar_ventas(tienda.listar_ventas())
-        print("💾 Datos guardados.")
-    except Exception as e:
-        print(f"⚠️ Error al guardar: {e}")
 
 
 # ================== Acciones del menú ===================
@@ -116,14 +85,15 @@ def accion_listar_usuarios(tienda):
     imprimir_usuarios(tienda)
 
 def accion_realizar_venta(tienda):
-    usuario = tienda.verificar_usuario(int(input("Ingrese el Id del usuario")))
-    producto = tienda.verificar_producto(int(input("Ingrese el Id del producto")))
+    usuario = tienda.verificar_usuario(pedir_int("Ingrese el ID del usuario: "))
     if not usuario:
         print("❌ No hay usuarios registrados con ese ID.")
-        return
+        return    
+    producto = tienda.verificar_producto(pedir_int("Ingrese el ID del producto: "))
     if not producto:
         print("❌ No hay productos disponibles.")
         return
+    
     if producto and usuario:
         cantidad = pedir_int("Cantidad: ")
         if cantidad > 0 and cantidad <= producto.cantidad:
@@ -146,7 +116,6 @@ def accion_listar_ventas(tienda):
 def menu():
     tienda = Tienda()
     gestor = Gestor()
-    cargar_datos(tienda, gestor)
 
     # --- Datos de prueba ---
     if not tienda.listar_usuarios():
@@ -165,8 +134,7 @@ def menu():
 4) Listar usuarios
 5) Realizar venta
 6) Listar ventas
-7) Guardar cambios
-0) Guardar y salir
+0) Salir
 ==========================================
 """)
         op = pedir_int("Elige una opción: ", minimo=0, maximo=7)
@@ -184,9 +152,9 @@ def menu():
         elif op == 6:
             accion_listar_ventas(tienda)
         elif op == 7:
-            guardar_datos(tienda, gestor)
+            #mostrar_estadisticas_csv()
+            pass
         elif op == 0:
-            guardar_datos(tienda, gestor)
             print("¡Gracias por usar la tienda!")
             break
 

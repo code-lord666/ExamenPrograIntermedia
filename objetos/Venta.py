@@ -13,7 +13,8 @@ class Venta:
         producto.cantidad -= cantidad
 
     def __str__(self):
-        return f"Venta de {self.cantidad} unidades de {self.producto.nombre_Producto} a {self.usuario.nombre} por un total de {self.total} el {self.fecha}"
+        fecha_formateada = self.fecha.strftime('%Y-%m-%d | %H:%M:%S')
+        return f"Venta de {self.cantidad} unidades de {self.producto.nombre_Producto} a {self.usuario.nombre} por un total de {self.total} el {fecha_formateada}"
     
     
 # Aquí es donde se manipulan los objetos tipo PRODUCTO, para realizar ventas
