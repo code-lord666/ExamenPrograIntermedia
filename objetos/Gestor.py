@@ -31,7 +31,7 @@ class Gestor:
 
         # Ventas por día
         ventas_por_dia = df.groupby("Fecha")["Total"].sum()
-        print("\n=" * 40)
+        print("=" * 40)
         print("Ventas por día:\n")
         print(ventas_por_dia.reset_index().to_string(index=False, header=["Fecha", "Total"]))
 

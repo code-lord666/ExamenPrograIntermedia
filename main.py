@@ -134,6 +134,8 @@ def menu():
 4) Listar usuarios
 5) Realizar venta
 6) Listar ventas
+7) Guardar ventas en CSV
+8) Mostrar estadísticas
 0) Salir
 ==========================================
 """)
