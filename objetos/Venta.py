@@ -4,12 +4,12 @@ from .Producto import Producto
 from .Usuario import Usuario
 
 class Venta:
-    def __init__(self, producto: Producto, cantidad: int, usuario: Usuario):
+    def __init__(self, producto: Producto, cantidad: int, usuario: Usuario, fecha = datetime.now()):
         self.producto = producto
         self.cantidad = cantidad
         self.usuario = usuario
         self.total = producto.precio * cantidad
-        self.fecha = datetime.now()
+        self.fecha = fecha
         producto.cantidad -= cantidad
 
     def __str__(self):

@@ -3,7 +3,37 @@ from objetos.Producto import Producto
 from objetos.Usuario import Usuario
 from objetos.Venta import Venta
 from objetos.Gestor import Gestor
+from datetime import datetime, timedelta
+import random
 #----------------------------------------------------------------------------
+#precargar datos
+def recargardatos(tienda):
+    # Agregar productos de prueba
+    for i in range(1, 6):
+        if not tienda.listar_productos():
+            producto_prueba = Producto(f"ProductoPrueba{i}", (i*1000), (10+i))
+            tienda.agregar_producto(producto_prueba)
+
+    # Agregar usuarios de prueba
+    for i in range(1, 6):
+        if not tienda.listar_usuarios():
+            usuario_prueba = Usuario(i, f"UsuarioPrueba{i}")
+            tienda.agregar_usuario(usuario_prueba)
+
+    # Crear ventas de prueba usando los productos y usuarios agregados
+    productos = tienda.productos
+    usuarios = tienda.usuarios
+    for i in range(min(len(productos), len(usuarios))):
+        usuario = usuarios[i]
+        producto = productos[i]
+        cantidad = 1 + i  # Cantidad de prueba
+        dias_atras = random.randint(0, 29)
+        segundos = random.randint(0, 86399)
+        fecha_random = datetime.now() - timedelta(days=dias_atras, seconds=segundos)
+        venta = Venta(producto, cantidad, usuario, fecha_random)
+        tienda.agregar_venta(venta)
+
+
 
 #----------------------------------------------------------------------------
 def pedir_int(msg, minimo=None, maximo=None):
@@ -117,14 +147,6 @@ def menu():
     tienda = Tienda()
     gestor = Gestor()
 
-    # --- Datos de prueba ---
-    if not tienda.listar_usuarios():
-        usuario_prueba = Usuario(1, "UsuarioPrueba")
-        tienda.agregar_usuario(usuario_prueba)
-    if not tienda.listar_productos():
-        producto_prueba = Producto("ProductoPrueba", 1000, 10)
-        tienda.agregar_producto(producto_prueba)
-
     while True:
         print("""
 =========== MADRIGUERA ERRANTE ===========
@@ -136,10 +158,11 @@ def menu():
 6) Listar ventas
 7) Guardar ventas en CSV
 8) Mostrar estadísticas
+9) Recargar datos
 0) Salir
 ==========================================
 """)
-        op = pedir_int("Elige una opción: ", minimo=0, maximo=8)
+        op = pedir_int("Elige una opción: ", minimo=0, maximo=9)
 
         if op == 1:
             accion_listar_productos(tienda)
@@ -159,7 +182,8 @@ def menu():
             pass
         elif op == 8:
             gestor.mostrar_estadisticas_csv()
-
+        elif op == 9:
+            recargardatos(tienda)
         elif op == 0:
             print("¡Gracias por usar la tienda!")
             break
