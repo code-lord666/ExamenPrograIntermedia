@@ -12,5 +12,5 @@ class Gestor:
                 venta.usuario.nombre,
                 venta.producto.nombre_Producto,
                 venta.cantidad,
-                venta.total
+                venta.total # precio total
             ])
