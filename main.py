@@ -5,8 +5,8 @@ from objetos.Venta import Venta
 from objetos.Gestor import Gestor
 from datetime import datetime, timedelta
 import random
-#----------------------------------------------------------------------------
-#precargar datos
+
+## ================== Precargar datos ===================
 def recargardatos(tienda):
     # Agregar productos de prueba
     for i in range(1, 6):
@@ -34,8 +34,7 @@ def recargardatos(tienda):
         tienda.agregar_venta(venta)
 
 
-
-#----------------------------------------------------------------------------
+#------------------- Funciones de entrada --------------------------
 def pedir_int(msg, minimo=None, maximo=None):
     while True:
         try:
@@ -69,6 +68,7 @@ def pedir_str(msg, obligatorio=False):
             continue
         return s
 
+# ================== Impresiones =========================
 
 def imprimir_productos(tienda):
     print("\n📦 Productos")
@@ -88,13 +88,7 @@ def imprimir_ventas(tienda):
     tienda.listar_ventas()
     print("-" * 80)
 
-
-
-
 # ================== Acciones del menú ===================
-
-def accion_listar_productos(tienda):
-    imprimir_productos(tienda)
 
 def accion_agregar_producto(tienda):
     nombre = pedir_str("Nombre del producto: ", obligatorio=True)
@@ -110,9 +104,6 @@ def accion_registrar_usuario(tienda):
     u = Usuario(Id, nombre)
     tienda.agregar_usuario(u)
     print("✅ Usuario registrado.")
-
-def accion_listar_usuarios(tienda):
-    imprimir_usuarios(tienda)
 
 def accion_realizar_venta(tienda):
     usuario = tienda.verificar_usuario(pedir_int("Ingrese el ID del usuario: "))
@@ -133,13 +124,6 @@ def accion_realizar_venta(tienda):
         else:
             print("❌ Cantidad inválida.")
             return
-    
-
-    
-
-def accion_listar_ventas(tienda):
-    imprimir_ventas(tienda)
-
 
 # ===================== Menú principal ===================
 
@@ -165,21 +149,19 @@ def menu():
         op = pedir_int("Elige una opción: ", minimo=0, maximo=9)
 
         if op == 1:
-            accion_listar_productos(tienda)
+            imprimir_productos(tienda)
         elif op == 2:
             accion_agregar_producto(tienda)
         elif op == 3:
             accion_registrar_usuario(tienda)
         elif op == 4:
-            accion_listar_usuarios(tienda)
+            imprimir_usuarios(tienda)   
         elif op == 5:
             accion_realizar_venta(tienda)
         elif op == 6:
-            accion_listar_ventas(tienda)
+            imprimir_ventas(tienda)
         elif op == 7:
             gestor.guardar_csv(tienda)
-            #mostrar_estadisticas_csv()
-            pass
         elif op == 8:
             gestor.mostrar_estadisticas_csv()
         elif op == 9:
@@ -187,7 +169,5 @@ def menu():
         elif op == 0:
             print("¡Gracias por usar la tienda!")
             break
-
-
-if __name__ == "__main__":
-    menu()
+        
+menu()#Inicio del menú
