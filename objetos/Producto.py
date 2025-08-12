@@ -9,4 +9,4 @@ class Producto:
         self.cantidad = cantidad 
     
     def __str__(self):
-        return f"\nId: {self.id_producto} \nProducto: {self.nombre_Producto} \nPrecio: {self.precio}   \nStock: {self.cantidad}"
+        return f"Id: {self.id_producto} \nProducto: {self.nombre_Producto} \nPrecio: {self.precio}   \nStock: {self.cantidad}"

@@ -6,4 +6,4 @@ class Usuario:
         self.id_usuario = id_usuario
 
     def __str__(self):
-        return f"Usuario {self.nombre} (ID: {self.id_usuario})"
+        return f"Usuario {self.nombre} | ID: {self.id_usuario}"

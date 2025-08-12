@@ -26,11 +26,10 @@ class Tienda:
             return False
     
     def verificar_producto(self, id_producto):
-        if (id_producto != ""):
-            for producto in self.productos:
-                if (producto.id_producto == id_producto):
-                    return producto
-                return False
+        for producto in self.productos:
+            if (producto.id_producto == id_producto):
+                return producto
+            return False
 
 
     #def vender_producto (self, id_producto, id_usuario): 
@@ -39,6 +38,16 @@ class Tienda:
             return print("❌ No hay productos disponibles.")
         for producto in self.productos:
             print(producto)
+    def listar_usuarios(self):
+        if not self.usuarios:
+            return print("❌ No hay usuarios registrados.")
+        for usuario in self.usuarios:
+            print(usuario)
+    def listar_ventas(self):
+        if not self.ventas:
+            return print("❌ No hay ventas registradas.")
+        for venta in self.ventas:
+            print(venta)
  
         
     

@@ -45,28 +45,16 @@ def imprimir_productos(tienda):
     tienda.listar_productos()
     print("-" * 60)
 
-def imprimir_usuarios(usuarios):
+def imprimir_usuarios(tienda):
     print("\n👤 Usuarios")
     print("-" * 40)
-    print(f"{'ID':<5}{'Nombre':<22}{'Rol':<10}")
-    print("-" * 40)
-    if not usuarios:
-        print("(sin usuarios)")
-    else:
-        for i, u in enumerate(usuarios, start=1):
-            print(f"{i:<5}{u.nombre:<22}{u.rol:<10}")
+    tienda.listar_usuarios()
     print("-" * 40)
 
-def imprimir_ventas(ventas):
+def imprimir_ventas(tienda):
     print("\n🧾 Ventas")
     print("-" * 80)
-    print(f"{'ID':<5}{'Usuario':<18}{'Producto':<28}{'Cant':>6}{'Total':>12}")
-    print("-" * 80)
-    if not ventas:
-        print("(sin ventas)")
-    else:
-        for i, v in enumerate(ventas, start=1):
-            print(f"{i:<5}{v.usuario.nombre:<18}{v.producto.nombre:<28}{v.cantidad:>6}{v.total:>12.2f}")
+    tienda.listar_ventas()
     print("-" * 80)
 
 
@@ -119,47 +107,38 @@ def accion_agregar_producto(tienda):
 
 def accion_registrar_usuario(tienda):
     nombre = pedir_str("Nombre del usuario: ", obligatorio=True)
-    rol = pedir_str("Rol (admin/cliente): ") or "cliente"
-    u = Usuario(nombre, rol)
-    tienda.registrar_usuario(u)
+    Id = pedir_int("ID del usuario: ")
+    u = Usuario(Id, nombre)
+    tienda.agregar_usuario(u)
     print("✅ Usuario registrado.")
 
 def accion_listar_usuarios(tienda):
-    imprimir_usuarios(tienda.listar_usuarios())
+    imprimir_usuarios(tienda)
 
 def accion_realizar_venta(tienda):
-    usuarios = tienda.listar_usuarios()
-    productos = tienda.listar_productos()
-
-    if not usuarios:
-        print("❌ No hay usuarios registrados.")
+    usuario = tienda.verificar_usuario(int(input("Ingrese el Id del usuario")))
+    producto = tienda.verificar_producto(int(input("Ingrese el Id del producto")))
+    if not usuario:
+        print("❌ No hay usuarios registrados con ese ID.")
         return
-    if not productos:
+    if not producto:
         print("❌ No hay productos disponibles.")
         return
+    if producto and usuario:
+        cantidad = pedir_int("Cantidad: ")
+        if cantidad > 0 and cantidad <= producto.cantidad:
+            venta = Venta(producto, cantidad, usuario)
+            tienda.agregar_venta(venta)
+            print(f"✅ Venta realizada.\n {venta}")
+        else:
+            print("❌ Cantidad inválida.")
+            return
+    
 
-    imprimir_usuarios(usuarios)
-    i_u = pedir_int("Seleccione ID de usuario: ", minimo=1, maximo=len(usuarios))
-    usuario = usuarios[i_u - 1]
-
-    imprimir_productos(productos)
-    i_p = pedir_int("Seleccione ID de producto: ", minimo=1, maximo=len(productos))
-    producto = productos[i_p - 1]
-
-    cantidad = pedir_int("Cantidad: ", minimo=1)
-
-    if producto.stock < cantidad:
-        print(f"❌ Stock insuficiente. Disponible: {producto.stock}")
-        return
-
-    venta = Venta(usuario, producto, cantidad)
-    tienda.registrar_venta(venta)
-    producto.stock -= cantidad  # descuento simple de stock
-
-    print(f"✅ Venta realizada. Total: {venta.total:.2f}")
+    
 
 def accion_listar_ventas(tienda):
-    imprimir_ventas(tienda.listar_ventas())
+    imprimir_ventas(tienda)
 
 
 # ===================== Menú principal ===================
@@ -168,6 +147,14 @@ def menu():
     tienda = Tienda()
     gestor = Gestor()
     cargar_datos(tienda, gestor)
+
+    # --- Datos de prueba ---
+    if not tienda.listar_usuarios():
+        usuario_prueba = Usuario(1, "UsuarioPrueba")
+        tienda.agregar_usuario(usuario_prueba)
+    if not tienda.listar_productos():
+        producto_prueba = Producto("ProductoPrueba", 1000, 10)
+        tienda.agregar_producto(producto_prueba)
 
     while True:
         print("""
