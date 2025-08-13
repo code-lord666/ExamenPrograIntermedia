@@ -48,10 +48,4 @@ class Tienda:
         for venta in self.ventas:
             print(venta)
  
-        
-    
-
-
-
-
 # Aquí se guardan los productos existentes, las ventas realizadas y los usuarios registrados

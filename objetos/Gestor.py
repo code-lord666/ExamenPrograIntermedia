@@ -3,7 +3,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 class Gestor:
     def __init__(self):
         pass
@@ -23,11 +22,11 @@ class Gestor:
             })
 
         df = pd.DataFrame(datos)
-        df.to_csv("ExamenPrograIntermedia/ventas.csv", index=False, encoding="utf-8")
+        df.to_csv("ventas.csv", index=False, encoding="utf-8")
     
     
     def mostrar_estadisticas_csv(self):
-        df = pd.read_csv("ExamenPrograIntermedia/ventas.csv")
+        df = pd.read_csv("ventas.csv")
 
         # Ventas por día
         ventas_por_dia = df.groupby("Fecha")["Total"].sum()
